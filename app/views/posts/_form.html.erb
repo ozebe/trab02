@@ -20,11 +20,7 @@
     <%= form.label :'Descrição' %>
     <%= form.text_field :desc, :class => "form-control" %>
   </div>
-
-  <div class="form-group">
-    <%= form.label :user_id %>
-    <%= form.select :user_id, User.all.collect {|user| [user.email, user.id]}, {include_blank: false }, class: 'form-control' %>
-  </div>
+  <br>
 
   <div class="actions">
     <%= form.submit "Salvar", :class => "btn btn-success btn-lg"%>
