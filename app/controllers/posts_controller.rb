@@ -6,12 +6,16 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
-
+    @users = User.all
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @posts = Post.all
+    @users = User.all
+    @users = @users.joins("INNER JOIN posts ON users.id = posts.user_id")
+    @users= @users.where("posts.id = " + params[:id])
   end
 
   # GET /posts/new
