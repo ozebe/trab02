@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <%user = @user %>
-  <%if can? :manage, user %>
+  <%if current_user.admin == true%>
   <div class="field">
     <%= form.label :admin %>
     <%= form.check_box :admin %>
