@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @posts = Post.all.order(:updated_at)
     @posts = Post.all
     @users = User.all
   end
@@ -21,11 +22,13 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-
+    @users = User.all
   end
 
   # GET /posts/1/edit
   def edit
+    @posts = Post.all
+    @users = User.all
   end
 
   # POST /posts
