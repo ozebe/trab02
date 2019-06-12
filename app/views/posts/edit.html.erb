@@ -1,6 +1,12 @@
-<h1>Editing Post</h1>
-
+<div class="container-fluid">
+  <br>
+  <br>
+<h1>Editar publicação</h1>
+<%post = @post %>
+<%if can? :manage, post %>
 <%= render 'form', post: @post %>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Visualizar', @post, :class => "btn btn-info" %> |
+<%= link_to 'Voltar', posts_path, :class => "btn btn-primary" %>
+<%end %>
+</div>

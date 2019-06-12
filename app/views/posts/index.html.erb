@@ -1,42 +1,83 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/home/index">Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          <li><%= link_to 'Novo post', new_post_path %></li>
+        <% else %>
+          <li>
+            <%= link_to('Login', new_user_session_path) %>
+          </li>
+
+        <% end %>
+      </ul>
+
+      <% if user_signed_in? %>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% @users.each do |user| %>
+              <%if can? :manage, user %>
+                <li><a <%= link_to 'Editar conta' ' - ' + user.email, edit_user_path(user)%></li>
+              <%end %>
+            <% end %>
+            <li role="separator" class="divider"></li>
+            <li><a <%= link_to('Sair', destroy_user_session_path, method: :delete) %></a></li>
+
+          </ul>
+      <% end %>
+      </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container-fluid">
+  <br>
+  <br>
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
+<h1>Mural</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Desc</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
+
+
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.desc %></td>
-        <td><%= link_to 'Show', post %></td>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= post.title %></h3>
+      </div>
+      <div class="panel-body">
+        <%= post.desc %>
+        |
+        <%= link_to 'Visualizar', post, :class => "btn btn-info"%>
         <%if can? :manage, post %>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <%end %>
-      </tr>
+          <%= link_to 'Editar', edit_post_path(post), :class => "btn btn-warning"  %>
+          <%= link_to 'Apagar', post, method: :delete, data: { confirm: 'Você tem certeza?' }, :class => "btn btn-danger" %>
+        <%end %>
+
+      </div>
+    </div>
     <% end %>
-  </tbody>
+
 </table>
 
 <br>
 
-
-
-<% if user_signed_in? %>
-  <%= link_to 'New Post', new_post_path %>
-  <li>
-    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-  </li>
-<% else %>
-  <li>
-    <%= link_to('Login', new_user_session_path) %>
-  </li>
-<% end %>
+</div>

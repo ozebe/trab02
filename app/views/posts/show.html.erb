@@ -1,16 +1,24 @@
+<div class="container-fluid">
+  <br>
+  <br>
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
+  <strong>Título:</strong>
   <%= @post.title %>
 </p>
 
 <p>
-  <strong>Desc:</strong>
+  <strong>Descrição:</strong>
   <%= @post.desc %>
 </p>
+<% @users.each do |user|%>
+  <div><strong>Criador: </strong><%= user.email%></div>
+
+<% end %>
 <%post = @post %>
 <%if can? :manage, post %>
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Editar', edit_post_path(@post), :class => "btn btn-warning"  %> |
 <%end %>
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Voltar', posts_path, :class => "btn btn-primary"  %>
+</div>
